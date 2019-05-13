@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<?php header('Content-Type: text/html; charset=UTF-8'); ?>
 <html>
 <head>
-	<title>Wishlist</title>
-	<meta charset="utf-8">
+	<title>Achats</title>
 </head>
 <body>
-	<h1>Wishlist</h1>
+	<h1>Achats</h1>
 	<input id="searchItem" type="text" name="search" placeholder="Recherche">
 	<ul id="searchResults"></ul>
 	<script type="text/javascript" src="js/search_item.js"></script>
