@@ -1,4 +1,10 @@
-<?php header('Content-Type: text/html; charset=UTF-8'); ?>
+<?php 
+	header('Content-Type: text/html; charset=UTF-8'); 
+	include('classes/pdomanager.class.php');
+
+	$pdoManager = new PDOManager();
+	$pdoManager->test();
+?>
 <html>
 <head>
 	<title>Nostalwish</title>
