@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/item.class.php');
+require_once 'pdomanager.class.php';
+require_once '../item.class.php';
 
 class ItemPDO extends PDOManager {
 

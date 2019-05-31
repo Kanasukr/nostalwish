@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/transaction.class.php');
+require '/classes/pdo/pdomanager.class.php';
+require '/classes/transaction.class.php';
 
 class TransactionPDO extends PDOManager {
 

@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/guild.class.php');
+require '/classes/pdo/pdomanager.class.php';
+require '/classes/guild.class.php';
 
 class GuildPDO extends PDOManager {
 

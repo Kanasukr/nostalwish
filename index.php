@@ -1,5 +1,22 @@
 <?php 
 	header('Content-Type: text/html; charset=UTF-8'); 
+
+	require_once __DIR__ . '/config.php';
+
+	echo SITE_ROOT;
+
+	/*require_once 'classes/pdo/itempdo.class.php';
+
+	$itemPdo = new ItemPDO();
+
+	$item = new Item();
+
+	$item->setName('Bottes de Sancteforge');
+	$item->setRarity('rare');
+	$item->setPrice(68444);
+
+	$itemPdo->create($item);*/
+
 ?>
 <html>
 <head>

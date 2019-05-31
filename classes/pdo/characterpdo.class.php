@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/character.class.php');
+require '/classes/pdo/pdomanager.class.php';
+require '/classes/character.class.php';
 
 class CharacterPDO extends PDOManager {
 

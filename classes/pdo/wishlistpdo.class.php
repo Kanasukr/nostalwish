@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/wishlist.class.php');
+require 'pdomanager.class.php';
+require '../wishlist.class.php';
 
 class WishlistPDO extends PDOManager {
 

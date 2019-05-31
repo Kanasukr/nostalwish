@@ -1,7 +1,7 @@
 <?php
 
-include('classes/pdo/pdomanager.class.php');
-include('classes/store.class.php');
+require '/classes/pdo/pdomanager.class.php';
+require '/classes/store.class.php';
 
 class StorePDO extends PDOManager {
 
