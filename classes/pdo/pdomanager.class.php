@@ -12,10 +12,6 @@ class PDOManager extends PDO {
        
         parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
     }
-
-    public function test() {
-    	printf("test");
-    }
 }
 
 ?>

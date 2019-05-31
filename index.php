@@ -1,9 +1,11 @@
 <?php 
 	header('Content-Type: text/html; charset=UTF-8'); 
-	include('classes/pdomanager.class.php');
+	include('classes/pdo/characterpdo.class.php');
 
-	$pdoManager = new PDOManager();
-	$pdoManager->test();
+	$characterPDO = new CharacterPDO();
+	$characters = $characterPDO->getAll();
+	$name = $characters[0]->getName();
+	echo $name;
 ?>
 <html>
 <head>
