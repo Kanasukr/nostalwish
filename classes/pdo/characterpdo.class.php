@@ -5,10 +5,66 @@ include('classes/character.class.php');
 
 class CharacterPDO extends PDOManager {
 
+	public function create($character) {
+		$sql = "INSERT INTO characters (race,class,level,name) VALUES (:race,:class,:level,:name)";
+		$query = $this->prepare($sql);
+		
+		$result = $query->execute(
+			array(
+				':race'=>$character->getRace(),
+				':class'=>$character->getClass(),
+				':level'=>$character->getLevel(),
+				':name'=>$character->getName()
+			)
+		);
+		if(!empty($result)) {
+			$character->setId($result['id']);
+		}
+		return $character;
+	}
+
+	public function get($id) {
+    	$sql = "SELECT * FROM characters WHERE id = :id";
+    	$query = $this->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $result = $query->fetch();
+        $character = new Character();
+        if(!empty($result)) {
+        	$character->setId($result['id']);
+        	$character->setRace($result['race']);
+        	$character->setClass($result['class']);
+        	$character->setLevel($result['level']);
+        	$character->setName($result['name']);
+        }
+        return $character;
+    }
+
+    public function update($character) {
+		$sql = "UPDATE characters SET race=:race,class=:class,level=:level,name=:name WHERE id = :id";
+		$query = $this->prepare($sql);
+		
+		$result = $query->execute(
+			array(
+				':id'=>$character->getId(),
+				':race'=>$character->getRace(),
+				':class'=>$character->getClass(),
+				':level'=>$character->getLevel(),
+				':name'=>$character->getName()
+			)
+		);
+	}
+
+	public function delete($id) {
+		$sql = "DELETE FROM characters WHERE id = :id";
+		$query = $this->prepare($sql);
+		$result = $query->execute(array(':id'=>$id));
+	}
+
     public function getAll() {
-    	$pdo_statement = $this->prepare("SELECT * FROM characters");
-        $pdo_statement->execute();
-        $result = $pdo_statement->fetchAll();
+    	$sql = "SELECT * FROM characters";
+    	$query = $this->prepare($sql);
+        $query->execute();
+        $result = $query->fetchAll();
         $characters = [];
         foreach ($result as $key => $line) {
         	$character = new Character();
