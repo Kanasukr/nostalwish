@@ -18,6 +18,15 @@ class Item {
 
     public function getPrice() { return $this->price; }
     public function setPrice($price) { $this->price = $price; }
+
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'rarity' => $this->rarity,
+            'price' => $this->price
+        ];
+    }
 }
 
 ?>

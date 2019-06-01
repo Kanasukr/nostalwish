@@ -3,26 +3,29 @@ window.onload = function() {
 	searchItemElement.onkeyup = function() {
 		var searchItemElement = this,
 			searchResultsElement = document.getElementById('searchResults'),
+			wishlistProposalElement = document.getElementById('wishlistProposal'),
 			items,
-			xhr = new XMLHttpRequest();
+			xhr = new XMLHttpRequest(),
+			params = 'name='+searchItemElement.value.toLowerCase();
 
 		// Si le champ de requête est vide, retour
 		if(this.value.length == 0) {
 			searchResultsElement.innerHTML = "";
+			wishlistProposalElement.style.display = "none";
 			return;
 		}
 
 		// Envoi de la requête à la fonction PHP
+		xhr.open("POST","functions/search_item_in_store.php");
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
     			searchResultsElement.innerHTML = "";
+    			wishlistProposalElement.style.display = "";
        			items = JSON.parse(this.response);
        			
-       			// Comparaison de la recherche avec les items
   				for(var i = 0; i < items.length ; i++) {
-					if(items[i]['name'].toLowerCase().search(searchItemElement.value.toLowerCase()) == -1) {
-						continue;
-					}
+  					// Ajout des items sur la liste affichée
 					var resultLiElement = document.createElement('LI'),
 						resultLiLinkElement = document.createElement('A'),
 						resultLiElementContent = document.createTextNode(items[i]['name']);
@@ -30,10 +33,10 @@ window.onload = function() {
 					resultLiLinkElement.appendChild(resultLiElementContent);
 					resultLiElement.appendChild(resultLiLinkElement);
 					searchResultsElement.appendChild(resultLiElement);
+					wishlistProposalElement.style.display = "none";
 				}
     		}
 		};
-		xhr.open("POST","functions/search_item.php");
-		xhr.send();
+		xhr.send(params);
 	};
 };

@@ -1,7 +1,7 @@
 <?php
 
 class PDOManager extends PDO {
-    public function __construct($file = 'database_settings.ini') {
+    public function __construct($file = SITE_ROOT.'/database_settings.ini') {
         if (!$settings = parse_ini_file($file, TRUE)) {
         	throw new exception('Unable to open ' . $file . '.');
         }

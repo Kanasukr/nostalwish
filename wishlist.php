@@ -7,6 +7,7 @@
 	<h1>Wishlist</h1>
 	<input id="searchItem" type="text" name="search" placeholder="Recherche">
 	<ul id="searchResults"></ul>
-	<script type="text/javascript" src="js/search_item.js"></script>
+	<img id="spinner" src="img/spinner.gif" style="display: none;">
+	<script type="text/javascript" src="js/search_item_in_nostalgeek.js"></script>
 </body>
 </html>

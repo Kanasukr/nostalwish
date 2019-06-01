@@ -1,7 +1,7 @@
 <?php
 
 require_once 'pdomanager.class.php';
-require_once '../item.class.php';
+require_once SITE_ROOT.'/classes/item.class.php';
 
 class ItemPDO extends PDOManager {
 
@@ -61,6 +61,40 @@ class ItemPDO extends PDOManager {
     	$sql = "SELECT * FROM items";
     	$query = $this->prepare($sql);
         $query->execute();
+        $result = $query->fetchAll();
+        $items = [];
+        foreach ($result as $key => $line) {
+        	$item = new Item();
+        	$item->setId($line['id']);
+        	$item->setName($line['name']);
+        	$item->setRarity($line['rarity']);
+        	$item->setPrice($line['price']);
+        	$items[] = $item;
+        }
+        return $items;
+    }
+
+    public function getByName($name) {
+    	$sql = "SELECT * FROM items WHERE name=:name";
+    	$query = $this->prepare($sql);
+        $query->execute(array(':name' => $name));
+        $result = $query->fetchAll();
+        $items = [];
+        foreach ($result as $key => $line) {
+        	$item = new Item();
+        	$item->setId($line['id']);
+        	$item->setName($line['name']);
+        	$item->setRarity($line['rarity']);
+        	$item->setPrice($line['price']);
+        	$items[] = $item;
+        }
+        return $items;
+    }
+
+    public function searchByName($name) {
+    	$sql = "SELECT * FROM items WHERE name LIKE ?";
+    	$query = $this->prepare($sql);
+        $query->execute(array('%'.$name.'%'));
         $result = $query->fetchAll();
         $items = [];
         foreach ($result as $key => $line) {
