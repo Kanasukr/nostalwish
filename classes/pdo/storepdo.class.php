@@ -8,11 +8,8 @@ class StorePDO extends PDOManager {
 	public function create($store) {
 		$sql = "INSERT INTO stores VALUES ()";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute();
-		if(!empty($result)) {
-			$store->setId($result['id']);
-		}
+		$query->execute();
+		$store->setId($this->lastInsertId('id'));
 		return $store;
 	}
 

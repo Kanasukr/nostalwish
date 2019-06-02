@@ -8,8 +8,7 @@ class CharacterPDO extends PDOManager {
 	public function create($character) {
 		$sql = "INSERT INTO characters (race,class,level,name) VALUES (:race,:class,:level,:name)";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute(
+		$query->execute(
 			array(
 				':race'=>$character->getRace(),
 				':class'=>$character->getClass(),
@@ -17,9 +16,7 @@ class CharacterPDO extends PDOManager {
 				':name'=>$character->getName()
 			)
 		);
-		if(!empty($result)) {
-			$character->setId($result['id']);
-		}
+		$character->setId($this->lastInsertId('id'));
 		return $character;
 	}
 

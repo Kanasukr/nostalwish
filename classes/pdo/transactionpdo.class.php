@@ -8,11 +8,8 @@ class TransactionPDO extends PDOManager {
 	public function create($transaction) {
 		$sql = "INSERT INTO transactions VALUES ()";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute();
-		if(!empty($result)) {
-			$transaction->setId($result['id']);
-		}
+		$query->execute();
+		$transaction->setId($this->lastInsertId('id'));
 		return $transaction;
 	}
 

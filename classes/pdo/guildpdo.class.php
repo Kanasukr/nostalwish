@@ -8,11 +8,8 @@ class GuildPDO extends PDOManager {
 	public function create($guild) {
 		$sql = "INSERT INTO guilds (name) VALUES (:name)";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute(array(':name'=>$guild->getName()));
-		if(!empty($result)) {
-			$guild->setId($result['id']);
-		}
+		$query->execute(array(':name'=>$guild->getName()));
+		$guild->setId($this->lastInsertId('id'));
 		return $guild;
 	}
 

@@ -2,12 +2,18 @@ window.onload = function() {
 	var searchItemElement = document.getElementById('searchItem'),
 		timeout = null;
 
+	// S'il n'y a pas de barre de recherche, retour
+	if(searchItemElement == null) {
+		return;
+	}
+
 	// Lorsque l'entrée clavier est terminée
 	searchItemElement.onkeyup = function() {
 
 		var searchItemElement = this,
 			searchResultsElement = document.getElementById('searchResults'),
 			spinnerElement = document.getElementById('spinner'),
+			wishlistIdElement = document.getElementById('wishlistId'),
 			items,
 			xhr = new XMLHttpRequest(),
 			params = 'name='+searchItemElement.value.toLowerCase();
@@ -58,7 +64,12 @@ window.onload = function() {
 							resultLiLinkElement = document.createElement('A'),
 							resultLiElementContent = document.createTextNode(items[i]['name']),
 							resultLiAddElement = document.createElement('SPAN');
-						resultLiAddElement.innerHTML = ' - <a href="functions/add_to_wishlist.php?name='+encodedName+'">Ajouter</a>';
+						resultLiAddElement.innerHTML = 
+						' - <a href="functions/add_item_to_wishlist.php?item_name='
+						+encodedName+
+						'&wishlist_id='
+						+wishlistIdElement.value+
+						'">Ajouter</a>';
 						resultLiLinkElement.setAttribute('href','#');
 						resultLiLinkElement.appendChild(resultLiElementContent);
 						resultLiElement.appendChild(resultLiLinkElement);

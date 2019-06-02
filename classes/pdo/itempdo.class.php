@@ -8,17 +8,14 @@ class ItemPDO extends PDOManager {
 	public function create($item) {
 		$sql = "INSERT INTO items (name,rarity,price) VALUES (:name,:rarity,:price)";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute(
+		$query->execute(
 			array(
 				':name'=>$item->getName(),
 				':rarity'=>$item->getRarity(),
 				':price'=>$item->getPrice()
 			)
 		);
-		if(!empty($result)) {
-			$item->setId($result['id']);
-		}
+		$item->setId($this->lastInsertId('id'));
 		return $item;
 	}
 

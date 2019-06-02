@@ -8,17 +8,14 @@ class AccountPDO extends PDOManager {
 	public function create($account) {
 		$sql = "INSERT INTO accounts (name,email,password) VALUES (:name,:email,:password)";
 		$query = $this->prepare($sql);
-		
-		$result = $query->execute(
+		$query->execute(
 			array(
 				':name'=>$account->getName(),
 				':email'=>$account->getEmail(),
 				':password'=>$account->getPassword()
 			)
 		);
-		if(!empty($result)) {
-			$account->setId($result['id']);
-		}
+		$account->setId($this->lastInsertId('id'));
 		return $account;
 	}
 
