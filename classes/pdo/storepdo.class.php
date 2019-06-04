@@ -1,7 +1,7 @@
 <?php
 
-require 'pdomanager.class.php';
-require SITE_ROOT.'/classes/store.class.php';
+require_once 'pdomanager.class.php';
+require_once SITE_ROOT.'/classes/store.class.php';
 
 class StorePDO extends PDOManager {
 

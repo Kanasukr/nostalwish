@@ -1,7 +1,7 @@
 <?php
 
-require 'pdomanager.class.php';
-require SITE_ROOT.'/classes/account.class.php';
+require_once 'pdomanager.class.php';
+require_once SITE_ROOT.'/classes/account.class.php';
 
 class AccountPDO extends PDOManager {
 
@@ -80,6 +80,36 @@ class AccountPDO extends PDOManager {
         		':password'=>$password
         	)
         );
+        $result = $query->fetch();
+        $account = new Account();
+        if(!empty($result)) {
+        	$account->setId($result['id']);
+        	$account->setName($result['name']);
+        	$account->setEmail($result['email']);
+        	$account->setPassword($result['password']);
+        }
+        return $account;
+    }
+
+    public function getByName($name) {
+    	$sql = "SELECT * FROM accounts WHERE name=:name";
+    	$query = $this->prepare($sql);
+        $query->execute(array(':name'=>$name));
+        $result = $query->fetch();
+        $account = new Account();
+        if(!empty($result)) {
+        	$account->setId($result['id']);
+        	$account->setName($result['name']);
+        	$account->setEmail($result['email']);
+        	$account->setPassword($result['password']);
+        }
+        return $account;
+    }
+
+    public function getByEmail($email) {
+    	$sql = "SELECT * FROM accounts WHERE email=:email";
+    	$query = $this->prepare($sql);
+        $query->execute(array(':email'=>$email));
         $result = $query->fetch();
         $account = new Account();
         if(!empty($result)) {
