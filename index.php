@@ -36,7 +36,8 @@ $accountPdo = new AccountPDO();
 			<ul id="accountCharacters">
 		<?php foreach ($accountCharacters as $key => $accountCharacter) { ?>
 				<li>
-					<a href="#"><?php echo $accountCharacter->getName(); ?></a>
+					<a href="#"><?php echo $accountCharacter->getName(); ?></a> - 
+					<a href=<?php echo '"functions/remove_character_from_account.php?character_id='.$accountCharacter->getId().'&account_id='.$account->getId().'"'?>>Supprimer</a>
 				</li>		
 		<?php } ?>
 			</ul>

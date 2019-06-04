@@ -152,6 +152,17 @@ class AccountPDO extends PDOManager {
             )
         );
     }
+
+    public function removeCharacter($accountId,$characterId) {
+        $sql = "DELETE FROM account_characters(account_id,character_id) VALUES (:account_id,:character_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':account_id'=>$accountId,
+                ':character_id'=>$characterId
+            )
+        );
+    }
 }
 
 ?>
