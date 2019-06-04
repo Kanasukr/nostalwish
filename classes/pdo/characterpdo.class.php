@@ -74,6 +74,22 @@ class CharacterPDO extends PDOManager {
         }
         return $characters;
     }
+
+    public function getByName($name) {
+    	$sql = "SELECT * FROM characters WHERE name=:name";
+    	$query = $this->prepare($sql);
+        $query->execute(array(':name'=>$name));
+        $result = $query->fetch();
+        $character = new Character();
+        if(!empty($result)) {
+        	$account->setId($result['id']);
+        	$account->setName($result['name']);
+        	$account->setRace($result['race']);
+        	$account->setClass($result['class']);
+        	$account->setLevel($result['level']);
+        }
+        return $character;
+    }
 }
 
 ?>

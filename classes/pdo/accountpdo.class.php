@@ -2,6 +2,7 @@
 
 require_once 'pdomanager.class.php';
 require_once SITE_ROOT.'/classes/account.class.php';
+require_once SITE_ROOT.'/classes/character.class.php';
 
 class AccountPDO extends PDOManager {
 
@@ -119,6 +120,37 @@ class AccountPDO extends PDOManager {
         	$account->setPassword($result['password']);
         }
         return $account;
+    }
+
+    public function getCharacters($accountId) {
+        $sql = "SELECT characters.* FROM characters INNER JOIN account_characters ON characters.id = account_characters.character_id WHERE account_characters.account_id = :account_id";
+        $query = $this->prepare($sql);
+        $query->execute(array(':account_id'=>$accountId));
+        $result = $query->fetchAll();
+        $characters = [];
+        if(!empty($result)) {
+            foreach ($result as $key => $line) {
+                $character = new Character();
+                $character->setId($line['id']);
+                $character->setName($line['name']);
+                $character->setRace($line['race']);
+                $character->setClass($line['class']);
+                $character->setLevel($line['level']);
+                $characters[] = $character;
+            }  
+        }
+        return $characters;
+    }
+
+    public function addCharacter($accountId,$characterId) {
+        $sql = "INSERT INTO account_characters(account_id,character_id) VALUES (:account_id,:character_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':account_id'=>$accountId,
+                ':character_id'=>$characterId
+            )
+        );
     }
 }
 
