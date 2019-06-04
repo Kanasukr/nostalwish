@@ -68,6 +68,17 @@ class WishlistPDO extends PDOManager {
         );
     }
 
+    public function removeItem($wishlistId,$itemId) {
+        $sql = "DELETE FROM wishlist_items(wishlist_id,item_id) VALUES (:wishlist_id,:item_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':wishlist_id'=>$wishlistId,
+                ':item_id'=>$itemId
+            )
+        );
+    }
+
     public function getItems($wishlistId) {
         $sql = "SELECT items.* FROM items INNER JOIN wishlist_items ON items.id = wishlist_items.item_id WHERE wishlist_items.wishlist_id = :wishlist_id";
         $query = $this->prepare($sql);

@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=UTF-8');
 require_once 'config.php';
 require_once SITE_ROOT.'/classes/pdo/wishlistpdo.class.php';
 
-$wishlistId = 1;
+$wishlistId = 11;
 
 if(isset($_GET['wishlist_id'])) {
 	$wishlistId = $_GET['wishlist_id'];
@@ -28,7 +28,10 @@ $wishlistItems = $wishlistPdo->getItems($wishlistId);
 			if(!(empty($wishlistItems))) { ?>
 				<ul id="wishlistItems">
 			<?php foreach ($wishlistItems as $key => $wishlistItem) { ?>
-					<li><a href="#"><?php echo $wishlistItem->getName(); ?></a></li>		
+					<li>
+						<a href="#"><?php echo $wishlistItem->getName(); ?></a> - 
+						<a href=<?php echo '"functions/remove_item_from_wishlist.php?item_id='.$wishlistItem->getId().'&wishlist_id='.$wishlist->getId().'"'?>>Supprimer</a>
+					</li>		
 			<?php } ?>
 				</ul>
 		<?php } else { ?>

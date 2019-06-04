@@ -1,7 +1,7 @@
 <?php
 
-require '/classes/pdo/pdomanager.class.php';
-require '/classes/transaction.class.php';
+require 'pdomanager.class.php';
+require SITE_ROOT.'/classes/transaction.class.php';
 
 class TransactionPDO extends PDOManager {
 

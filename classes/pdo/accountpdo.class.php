@@ -1,7 +1,7 @@
 <?php
 
-require '/classes/pdo/pdomanager.class.php';
-require '/classes/account.class.php';
+require 'pdomanager.class.php';
+require SITE_ROOT.'/classes/account.class.php';
 
 class AccountPDO extends PDOManager {
 

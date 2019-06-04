@@ -3,7 +3,6 @@
 require_once '../config.php';
 require_once SITE_ROOT.'/classes/item.class.php';
 require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
-require_once SITE_ROOT.'/classes/wishlist.class.php';
 require_once SITE_ROOT.'/classes/pdo/wishlistpdo.class.php';
 
 if(!isset($_GET['item_name']) || !isset($_GET['wishlist_id'])) {
@@ -24,10 +23,9 @@ $item = $itemPdo->create($item);
 
 // Ajout de l'item à la wishlist
 $wishlistPdo = new wishlistPDO();
-$wishlist = $wishlistPdo->get($wishlistId);
 $wishlistPdo->addItem($wishlistId,$item->getId());
 
-header("Location: /wishlist.php?wishlist_id=".$wishlist->getId());
+header("Location: /wishlist.php?wishlist_id=".$wishlistId);
 die();
 
 ?>
