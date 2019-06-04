@@ -36,7 +36,7 @@ if($character->getId() == null) {
     	<p>Que souhaitez-vous faire ?</p>
 		<div id="action">
 			<a href=<?php echo '"buy.php?character_id='.$character->getId().'"'; ?>>Acheter</a><br>
-			<a href=<?php echo '"sell.php?character_id='.$character->getId().'"'; ?>>Vendre</a>
+			<a href=<?php echo '"store.php?character_id='.$character->getId().'"'; ?>>Vendre</a>
 		</div>
 	<?php } else { ?>
 		<p>Merci de vous authentifier :</p>

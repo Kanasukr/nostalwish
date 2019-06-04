@@ -16,8 +16,8 @@ $accountPdo = new AccountPDO();
 	<h1>Nostalwish</h1>
 	<p>Items et magasins pour le serveur NostalGeek</p>
 	<?php
-	if (isset($_SESSION['account_name'])) { ?>
-		<p>Identifié en tant que <?php echo $_SESSION['account_name']; ?></p><a href="functions/logout.php">Déconnexion</a>
+	if (isset($_SESSION['account_name'])) {
+		require_once SITE_ROOT.'/account_banner.php'; ?>
 		
 		<p>Liste des personnages :</p>
 
@@ -40,20 +40,6 @@ $accountPdo = new AccountPDO();
 				<p>Aucun personnage.</p>
 		<?php } ?>
 			<a href=<?php echo '"functions/add_character_to_account.php?account_id='.$account->getId().'"'; ?>>Ajouter</a>
-	<?php } else { ?>
-		<p>Merci de vous authentifier :</p>
-		<form id="login" action="functions/login.php" method="POST">
-			<input type="text" name="account_name" placeholder="Nom de compte">
-			<input type="password" name="account_password" placeholder="Mot de passe">
-			<input type="submit" name="submit" value="Valider">
-		</form>
-		<p>Pas de compte ? S'enregistrer :</p>
-		<form id="register" action="functions/register.php" method="POST">
-			<input type="text" name="account_name" placeholder="Nom de compte">
-			<input type="text" name="account_email" placeholder="email@hote.fr">
-			<input type="password" name="account_password" placeholder="Mot de passe">
-			<input type="submit" name="submit" value="Valider">
-		</form>
-	<?php } ?>
+	<?php } else { require_once SITE_ROOT.'/login_register_menu.php'; } ?>
 </body>
 </html>

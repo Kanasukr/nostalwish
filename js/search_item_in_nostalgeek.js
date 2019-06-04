@@ -14,6 +14,7 @@ window.onload = function() {
 			searchResultsElement = document.getElementById('searchResults'),
 			spinnerElement = document.getElementById('spinner'),
 			wishlistIdElement = document.getElementById('wishlistId'),
+			storeIdElement = document.getElementById('storeId'),
 			characterIdElement = document.getElementById('characterId'),
 			items,
 			xhr = new XMLHttpRequest(),
@@ -65,14 +66,28 @@ window.onload = function() {
 							resultLiLinkElement = document.createElement('A'),
 							resultLiElementContent = document.createTextNode(items[i]['name']),
 							resultLiAddElement = document.createElement('SPAN');
-						resultLiAddElement.innerHTML = 
-						' - <a href="functions/add_item_to_wishlist.php?item_name='
-						+encodedName+
-						'&wishlist_id='
-						+wishlistIdElement.value+
-						'&character_id='
-						+characterIdElement.value+
-						'">Ajouter</a>';
+
+						// Liens en fonction de la wishlist ou du magasin
+						if(wishlistIdElement !== null) {
+							resultLiAddElement.innerHTML = 
+							' - <a href="functions/add_item_to_wishlist.php?item_name='
+							+encodedName+
+							'&wishlist_id='
+							+wishlistIdElement.value+
+							'&character_id='
+							+characterIdElement.value+
+							'">Ajouter</a>';
+						} else if(storeIdElement !== null) {
+							resultLiAddElement.innerHTML = 
+							' - <a href="functions/add_item_to_store.php?item_name='
+							+encodedName+
+							'&store_id='
+							+storeIdElement.value+
+							'&character_id='
+							+characterIdElement.value+
+							'">Ajouter</a>';
+						}
+						
 						resultLiLinkElement.setAttribute('href','#');
 						resultLiLinkElement.appendChild(resultLiElementContent);
 						resultLiElement.appendChild(resultLiLinkElement);

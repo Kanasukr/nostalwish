@@ -1,18 +1,18 @@
 <?php 
 
 require_once '../config.php';
-require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
+require_once SITE_ROOT.'/classes/pdo/storepdo.class.php';
 
-$name = $_POST['name'];
-$itemPdo = new ItemPDO();
-$items = $itemPdo->searchByName($name);
-$itemsArray = [];
+// Recherche d'items dans les magasins
+$storePdo = new storePDO();
+$storeItems = $storePdo->searchItemsByName($_POST['item_name']);
+$storeItemsArray = [];
 
-foreach ($items as $key => $item) {
-	$itemsArray[] = $item->toArray();
+foreach ($storeItems as $key => $storeItem) {
+	$storeItemsArray[] = $storeItem->toArray();
 }
 
-$itemsJson = json_encode($itemsArray);
-echo $itemsJson;
+$storeItemsJson = json_encode($storeItemsArray);
+echo $storeItemsJson;
 
 ?>

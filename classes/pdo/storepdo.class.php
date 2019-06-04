@@ -2,6 +2,7 @@
 
 require_once 'pdomanager.class.php';
 require_once SITE_ROOT.'/classes/store.class.php';
+require_once SITE_ROOT.'/classes/item.class.php';
 
 class StorePDO extends PDOManager {
 
@@ -54,6 +55,64 @@ class StorePDO extends PDOManager {
         	$stores[] = $store;
         }
         return $stores;
+    }
+
+    public function addItem($storeId,$itemId) {
+        $sql = "INSERT INTO store_items(store_id,item_id) VALUES (:store_id,:item_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':store_id'=>$storeId,
+                ':item_id'=>$itemId
+            )
+        );
+    }
+
+    public function removeItem($storeId,$itemId) {
+        $sql = "DELETE FROM store_items(store_id,item_id) VALUES (:store_id,:item_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':store_id'=>$storeId,
+                ':item_id'=>$itemId
+            )
+        );
+    }
+
+    public function getItems($storeId) {
+        $sql = "SELECT items.* FROM items INNER JOIN store_items ON items.id = store_items.item_id WHERE store_items.store_id = :store_id";
+        $query = $this->prepare($sql);
+        $query->execute(array(':store_id'=>$storeId));
+        $result = $query->fetchAll();
+        $items = [];
+        if(!empty($result)) {
+            foreach ($result as $key => $line) {
+                $item = new Item();
+                $item->setId($line['id']);
+                $item->setName($line['name']);
+                $item->setRarity($line['rarity']);
+                $item->setPrice($line['price']);
+                $items[] = $item;
+            }  
+        }
+        return $items;
+    }
+
+    public function searchItemsByName($name) {
+        $sql = "SELECT items.* FROM items INNER JOIN store_items ON items.id = store_items.item_id WHERE items.name LIKE ?";
+        $query = $this->prepare($sql);
+        $query->execute(array('%'.$name.'%'));
+        $result = $query->fetchAll();
+        $items = [];
+        foreach ($result as $key => $line) {
+            $item = new Item();
+            $item->setId($line['id']);
+            $item->setName($line['name']);
+            $item->setRarity($line['rarity']);
+            $item->setPrice($line['price']);
+            $items[] = $item;
+        }
+        return $items;
     }
 }
 

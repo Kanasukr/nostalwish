@@ -3,6 +3,7 @@
 require_once 'pdomanager.class.php';
 require_once SITE_ROOT.'/classes/character.class.php';
 require_once SITE_ROOT.'/classes/wishlist.class.php';
+require_once SITE_ROOT.'/classes/store.class.php';
 
 class CharacterPDO extends PDOManager {
 
@@ -111,6 +112,29 @@ class CharacterPDO extends PDOManager {
             array(
                 ':character_id'=>$characterId,
                 ':wishlist_id'=>$wishlistId
+            )
+        );
+    }
+
+    public function getStore($characterId) {
+        $sql = "SELECT stores.* FROM stores INNER JOIN character_store ON stores.id = character_store.store_id WHERE character_store.character_id = :character_id";
+        $query = $this->prepare($sql);
+        $query->execute(array(':character_id'=>$characterId));
+        $result = $query->fetch();
+        $store = new Store();
+        if(!empty($result)) {
+            $store->setId($result['id']);
+        }
+        return $store;
+    }
+
+    public function addStore($characterId,$storeId) {
+        $sql = "INSERT INTO character_store(character_id,store_id) VALUES (:character_id,:store_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':character_id'=>$characterId,
+                ':store_id'=>$storeId
             )
         );
     }

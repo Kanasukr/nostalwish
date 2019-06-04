@@ -28,7 +28,7 @@ $wishlist = $characterPdo->getWishlist($_GET['character_id']);
 if($wishlist->getId() !== null) {
 	
 	// Récupération des items de la wishlist
-	$wishlistPdo = new wishlistPDO();
+	$wishlistPdo = new WishlistPDO();
 	$wishlistItems = $wishlistPdo->getItems($wishlist->getId());
 }
 
@@ -39,7 +39,8 @@ if($wishlist->getId() !== null) {
 </head>
 <body>
 	<h1>Wishlist</h1>
-	<?php if($wishlist->getId() !== null) { 
+	<?php
+		if($wishlist->getId() !== null) { 
 			if(!(empty($wishlistItems))) { ?>
 				<ul id="wishlistItems">
 			<?php foreach ($wishlistItems as $key => $wishlistItem) { ?>

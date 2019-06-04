@@ -6,7 +6,7 @@ window.onload = function() {
 			wishlistProposalElement = document.getElementById('wishlistProposal'),
 			items,
 			xhr = new XMLHttpRequest(),
-			params = 'name='+searchItemElement.value.toLowerCase();
+			params = 'item_name='+searchItemElement.value.toLowerCase();
 
 		// Si le champ de requête est vide, retour
 		if(this.value.length == 0) {
