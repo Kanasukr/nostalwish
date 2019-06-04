@@ -14,6 +14,7 @@ window.onload = function() {
 			searchResultsElement = document.getElementById('searchResults'),
 			spinnerElement = document.getElementById('spinner'),
 			wishlistIdElement = document.getElementById('wishlistId'),
+			characterIdElement = document.getElementById('characterId'),
 			items,
 			xhr = new XMLHttpRequest(),
 			params = 'name='+searchItemElement.value.toLowerCase();
@@ -69,6 +70,8 @@ window.onload = function() {
 						+encodedName+
 						'&wishlist_id='
 						+wishlistIdElement.value+
+						'&character_id='
+						+characterIdElement.value+
 						'">Ajouter</a>';
 						resultLiLinkElement.setAttribute('href','#');
 						resultLiLinkElement.appendChild(resultLiElementContent);

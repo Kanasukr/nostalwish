@@ -2,6 +2,7 @@
 
 require_once 'pdomanager.class.php';
 require_once SITE_ROOT.'/classes/character.class.php';
+require_once SITE_ROOT.'/classes/wishlist.class.php';
 
 class CharacterPDO extends PDOManager {
 
@@ -89,6 +90,29 @@ class CharacterPDO extends PDOManager {
         	$account->setLevel($result['level']);
         }
         return $character;
+    }
+
+    public function getWishlist($characterId) {
+        $sql = "SELECT wishlists.* FROM wishlists INNER JOIN character_wishlist ON wishlists.id = character_wishlist.wishlist_id WHERE character_wishlist.character_id = :character_id";
+        $query = $this->prepare($sql);
+        $query->execute(array(':character_id'=>$characterId));
+        $result = $query->fetch();
+        $wishlist = new Wishlist();
+        if(!empty($result)) {
+            $wishlist->setId($result['id']);
+        }
+        return $wishlist;
+    }
+
+    public function addWishlist($characterId,$wishlistId) {
+        $sql = "INSERT INTO character_wishlist(character_id,wishlist_id) VALUES (:character_id,:wishlist_id)";
+        $query = $this->prepare($sql);
+        $query->execute(
+            array(
+                ':character_id'=>$characterId,
+                ':wishlist_id'=>$wishlistId
+            )
+        );
     }
 }
 
