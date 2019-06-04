@@ -17,6 +17,7 @@ require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
 	<p>Items et magasins pour le serveur NostalGeek</p>
 	<?php
 	if (isset($_SESSION['account_name'])) { ?>
+		<p>Identifié en tant que <?php echo $_SESSION['account_name']; ?></p><a href="functions/logout.php">Déconnexion</a>
     	<p>Que souhaitez-vous faire ?</p>
 		<div id="action">
 			<a href="buy.php">Acheter</a><br>
