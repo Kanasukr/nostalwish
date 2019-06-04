@@ -5,6 +5,8 @@ header('Content-Type: text/html; charset=UTF-8');
 require_once 'config.php';
 require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
 
+//session_destroy();
+
 ?>
 <html>
 <head>
@@ -14,7 +16,7 @@ require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
 	<h1>Nostalwish</h1>
 	<p>Items et magasins pour le serveur NostalGeek</p>
 	<?php
-	if (isset($_SESSION['account'])) { ?>
+	if (isset($_SESSION['account_name'])) { ?>
     	<p>Que souhaitez-vous faire ?</p>
 		<div id="action">
 			<a href="buy.php">Acheter</a><br>
@@ -24,7 +26,7 @@ require_once SITE_ROOT.'/classes/pdo/itempdo.class.php';
 		<p>Merci de vous authentifier :</p>
 		<form id="login" action="functions/login.php" method="POST">
 			<input type="text" name="account_name" placeholder="Nom de compte">
-			<input type="password" name="account_password" placeholder="password">
+			<input type="password" name="account_password" placeholder="Mot de passe">
 			<input type="submit" name="submit" value="Valider">
 		</form>
 	<?php } ?>

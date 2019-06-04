@@ -70,6 +70,26 @@ class AccountPDO extends PDOManager {
         }
         return $accounts;
     }
+
+    public function login($name,$password) {
+    	$sql = "SELECT * FROM accounts WHERE name=:name AND password=:password";
+    	$query = $this->prepare($sql);
+        $query->execute(
+        	array(
+        		':name'=>$name,
+        		':password'=>$password
+        	)
+        );
+        $result = $query->fetch();
+        $account = new Account();
+        if(!empty($result)) {
+        	$account->setId($result['id']);
+        	$account->setName($result['name']);
+        	$account->setEmail($result['email']);
+        	$account->setPassword($result['password']);
+        }
+        return $account;
+    }
 }
 
 ?>
