@@ -43,9 +43,14 @@ if($wishlist->getId() !== null) {
 		if($wishlist->getId() !== null) { 
 			if(!(empty($wishlistItems))) { ?>
 				<ul id="wishlistItems">
-			<?php foreach ($wishlistItems as $key => $wishlistItem) { ?>
+			<?php foreach ($wishlistItems as $key => $wishlistItem) { 
+				$wishlistItemPriceCupper = $wishlistItem->getPrice()%100;
+				$wishlistItemPriceSilver = floor(($wishlistItem->getPrice()%10000)/100);
+				$wishlistItemPriceGold = floor($wishlistItem->getPrice()/10000);
+				?>
 					<li>
 						<a href="#"><?php echo $wishlistItem->getName(); ?></a> - 
+						Prix souhaité : <?php echo $wishlistItemPriceGold."po ".$wishlistItemPriceSilver."pa ".$wishlistItemPriceCupper."pc"; ?> - 
 						<a href=<?php echo '"functions/remove_item_from_wishlist.php?item_id='.$wishlistItem->getId().'&wishlist_id='.$wishlist->getId().'&character_id='.$character->getId().'"'?>>Supprimer</a>
 					</li>		
 			<?php } ?>

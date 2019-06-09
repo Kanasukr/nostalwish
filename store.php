@@ -44,9 +44,14 @@ if($store->getId() !== null) {
 		if($store->getId() !== null) { 
 			if(!(empty($storeItems))) { ?>
 				<ul id="storeItems">
-			<?php foreach ($storeItems as $key => $storeItem) { ?>
+			<?php foreach ($storeItems as $key => $storeItem) { 
+				$storeItemPriceCupper = $storeItem->getPrice()%100;
+				$storeItemPriceSilver = floor(($storeItem->getPrice()%10000)/100);
+				$storeItemPriceGold = floor($storeItem->getPrice()/10000);
+				?>
 					<li>
 						<a href="#"><?php echo $storeItem->getName(); ?></a> - 
+						Prix : <?php echo $storeItemPriceGold."po ".$storeItemPriceSilver."pa ".$storeItemPriceCupper."pc"; ?> - 
 						<a href=<?php echo '"functions/remove_item_from_store.php?item_id='.$storeItem->getId().'&store_id='.$store->getId().'&character_id='.$character->getId().'"'?>>Supprimer</a>
 					</li>		
 			<?php } ?>

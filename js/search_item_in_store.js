@@ -25,14 +25,23 @@ window.onload = function() {
        			items = JSON.parse(this.response);
        			
   				for(var i = 0; i < items.length ; i++) {
-  					// Ajout des items sur la liste affichée
-					var resultLiElement = document.createElement('LI'),
-						resultLiLinkElement = document.createElement('A'),
-						resultLiElementContent = document.createTextNode(items[i]['name']);
-					resultLiLinkElement.setAttribute('href','#');
-					resultLiLinkElement.appendChild(resultLiElementContent);
-					resultLiElement.appendChild(resultLiLinkElement);
-					searchResultsElement.appendChild(resultLiElement);
+					var priceCupper = items[i]['price']%100, 
+						priceSilver = Math.floor((items[i]['price']%10000)/100), 
+						priceGold = Math.floor((items[i]['price'])/10000);
+
+					var resultContent = "<li>";
+					resultContent += '<a href="#">'+items[i]['name']+'</a>';
+					resultContent += ' - Prix : ';
+					if(priceGold > 0) {
+						resultContent += priceGold+'po ';
+					}
+					if(priceSilver > 0) {
+						resultContent += priceSilver+'pa ';
+					}
+					resultContent += priceCupper+'pc';
+					resultContent += "</li>";
+
+					searchResultsElement.innerHTML = resultContent;
 					wishlistProposalElement.style.display = "none";
 				}
     		}
